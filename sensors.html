@@ -15,23 +15,23 @@
             DeviceMotionEvent.requestPermission()
               .then(permissionState => {
                 if (permissionState === 'granted') {
-                  idarea.innerText += "Ready";
+                  messageArea.innerText += "Ready";
                   window.addEventListener('devicemotion', (eventData) => {
-                    idarea.innerText += "Moving";
+                    messageArea.innerText += "Moving";
                   });
                 }
                 else {
-                  idarea.innerText = "Permission denied";
+                  messageArea.innerText = "Permission denied";
                 }
               })
               .catch(function() {
-                idarea.innerText = "Some exception";
+                messageArea.innerText = "Some exception";
               });
           }
           else {
-            idarea.innerText += "Skipping permission";
+            messageArea.innerText += "Skipping permission";
             window.addEventListener('devicemotion', function(ev) {
-              idarea.innerText += "Moving";
+              messageArea.innerText += "Moving";
             });
           }
         }
