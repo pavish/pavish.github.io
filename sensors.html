@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sensors test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+  
+    <script>
+      function getDeviceMotion() {
+        var messageArea = document.querySelector("#msg");
+
+        if(window.DeviceMotionEvent) {
+          if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            DeviceMotionEvent.requestPermission()
+              .then(permissionState => {
+                if (permissionState === 'granted') {
+                  idarea.innerText += "Ready";
+                  window.addEventListener('devicemotion', (eventData) => {
+                    idarea.innerText += "Moving";
+                  });
+                }
+                else {
+                  idarea.innerText = "Permission denied";
+                }
+              })
+              .catch(function() {
+                idarea.innerText = "Some exception";
+              });
+          }
+          else {
+            idarea.innerText += "Skipping permission";
+            window.addEventListener('devicemotion', function(ev) {
+              idarea.innerText += "Moving";
+            });
+          }
+        }
+        else {
+          messageArea.innerText = "Use any of the latest smartphones";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="msg"></div>
+    <button onclick="getDeviceMotion()">Capture device motion</button>
+  </body>
+</html>
